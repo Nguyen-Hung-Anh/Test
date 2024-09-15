@@ -90,53 +90,64 @@ class CalendarEventTest {
         OneTimeEvent event2 = new OneTimeEvent("Conflicting Meeting", "Conference Room", startTime, endTime);
         
         // Schedule the first event
-        meetingCalendar.addMeeting(event1);
+        event1.scheduleEvent(meetingCalendar);
         
         // Try to schedule a conflicting event
-        boolean added = meetingCalendar.addMeeting(event2);
+        boolean added = event2.scheduleEvent(meetingCalendar);
         
         // Check that the second event wasn't scheduled if it conflicted
         assertFalse(added, "Conflicting one-time event should not be scheduled.");
     }
-
     @Test
     void testScheduleWeeklyEvent() {
         WeeklyEvent event = new WeeklyEvent(description, location, startTime, endTime, startTime);
         
         // Schedule the event
-        boolean added = meetingCalendar.addMeeting(event);
+        event.scheduleEvent(meetingCalendar);
         
         // Check if the event was added to the calendar
-        assertTrue(added, "Weekly event should be scheduled successfully.");
+        Meeting addedMeeting = meetingCalendar.findMeeting(startTime);
+        
+        assertEquals(description, addedMeeting.getDescription());
+        assertEquals(location, addedMeeting.getLocation());
+        assertEquals(startTime, addedMeeting.getStartTime());
+        assertEquals(endTime, addedMeeting.getEndTime());
+        assertTrue(meetingCalendar.doesMeetingConflict(addedMeeting), "Added weekly event has conflict.");
     }
-
+    
     @Test
     void testScheduleConflictingWeeklyEvent() {
         WeeklyEvent event1 = new WeeklyEvent(description, location, startTime, endTime, startTime);
         WeeklyEvent event2 = new WeeklyEvent("Conflicting Meeting", "Conference Room", startTime, endTime, startTime);
         
         // Schedule the first event
-        meetingCalendar.addMeeting(event1);
+        event1.scheduleEvent(meetingCalendar);
         
         // Try to schedule a conflicting event
-        boolean added = meetingCalendar.addMeeting(event2);
+        boolean added = event2.scheduleEvent(meetingCalendar);
         
         // Check that the second event wasn't scheduled if it conflicted
         assertFalse(added, "Conflicting weekly event should not be scheduled.");
     }
-
+    
     @Test
     void testScheduleMultiDayPerWeekEvent() {
         int[] days = {GregorianCalendar.MONDAY, GregorianCalendar.WEDNESDAY};
         MultiDayPerWeekEvent event = new MultiDayPerWeekEvent(description, location, startTime, endTime, startTime, days);
         
         // Schedule the event
-        boolean added = meetingCalendar.addMeeting(event);
+        event.scheduleEvent(meetingCalendar);
         
         // Check if the event was added to the calendar
-        assertTrue(added, "Multi-day per week event should be scheduled successfully.");
+        Meeting addedMeeting = meetingCalendar.findMeeting(startTime);
+        
+        assertEquals(description, addedMeeting.getDescription());
+        assertEquals(location, addedMeeting.getLocation());
+        assertEquals(startTime, addedMeeting.getStartTime());
+        assertEquals(endTime, addedMeeting.getEndTime());
+        assertTrue(meetingCalendar.doesMeetingConflict(addedMeeting), "Added multi-day per week event has conflict.");
     }
-
+    
     @Test
     void testScheduleConflictingMultiDayPerWeekEvent() {
         int[] days = {GregorianCalendar.MONDAY, GregorianCalendar.WEDNESDAY};
@@ -144,38 +155,43 @@ class CalendarEventTest {
         MultiDayPerWeekEvent event2 = new MultiDayPerWeekEvent("Conflicting Meeting", "Conference Room", startTime, endTime, startTime, days);
         
         // Schedule the first event
-        meetingCalendar.addMeeting(event1);
+        event1.scheduleEvent(meetingCalendar);
         
         // Try to schedule a conflicting event
-        boolean added = meetingCalendar.addMeeting(event2);
+        boolean added = event2.scheduleEvent(meetingCalendar);
         
         // Check that the second event wasn't scheduled if it conflicted
         assertFalse(added, "Conflicting multi-day per week event should not be scheduled.");
     }
-
+    
     @Test
     void testSchedulePriorityEvent() {
         PriorityEvent event = new PriorityEvent(description, location, startTime, endTime);
         
         // Schedule the event
-        boolean added = meetingCalendar.addMeeting(event);
+        event.scheduleEvent(meetingCalendar);
         
         // Check if the event was added to the calendar
-        assertTrue(added, "Priority event should be scheduled successfully.");
+        Meeting addedMeeting = meetingCalendar.findMeeting(startTime);
+        
+        assertEquals(description, addedMeeting.getDescription());
+        assertEquals(location, addedMeeting.getLocation());
+        assertEquals(startTime, addedMeeting.getStartTime());
+        assertEquals(endTime, addedMeeting.getEndTime());
+        assertTrue(meetingCalendar.doesMeetingConflict(addedMeeting), "Added priority event has conflict.");
     }
-
+    
     @Test
     void testScheduleConflictingPriorityEvent() {
         PriorityEvent event1 = new PriorityEvent(description, location, startTime, endTime);
         PriorityEvent event2 = new PriorityEvent("Conflicting Meeting", "Conference Room", startTime, endTime);
         
         // Schedule the first event
-        meetingCalendar.addMeeting(event1);
+        event1.scheduleEvent(meetingCalendar);
         
         // Try to schedule a conflicting event
-        boolean added = meetingCalendar.addMeeting(event2);
+        boolean added = event2.scheduleEvent(meetingCalendar);
         
         // Check that the second event wasn't scheduled if it conflicted
         assertFalse(added, "Conflicting priority event should not be scheduled.");
     }
-}
