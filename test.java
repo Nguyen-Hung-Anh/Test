@@ -1,14 +1,70 @@
 @Test
-	void testCalendarEvent()
-	{
-		fail("Not yet implemented");
-	}
+void testScheduleOneTimeEvent() {
+    OneTimeEvent event = new OneTimeEvent(description, location, startTime, endTime);
+    
+    // Schedule the event
+    event.scheduleEvent(meetingCalendar);
+    
+    // Check if the event was added to the calendar
+    assertTrue(meetingCalendar.containsEvent(event), "One-time event should be scheduled successfully.");
+}
 
-	@Test
-	void testScheduleEvent()
-	{
-		fail("Not yet implemented");
-	}
+@Test
+void testScheduleConflictingOneTimeEvent() {
+    OneTimeEvent event1 = new OneTimeEvent(description, location, startTime, endTime);
+    OneTimeEvent event2 = new OneTimeEvent("Conflicting Meeting", "Conference Room", startTime, endTime);
+    
+    // Schedule the first event
+    event1.scheduleEvent(meetingCalendar);
+    
+    // Try to schedule a conflicting event
+    event2.scheduleEvent(meetingCalendar);
+    
+    // Check that the second event wasn't scheduled
+    assertFalse(meetingCalendar.containsEvent(event2), "Conflicting one-time event should not be scheduled.");
+}
+
+@Test
+void testSchedulePriorityEvent() {
+    OneTimeEvent event1 = new OneTimeEvent(description, location, startTime, endTime);
+    PriorityEvent priorityEvent = new PriorityEvent("Urgent Meeting", "Conference Room", startTime, endTime);
+    
+    // Schedule the normal event first
+    event1.scheduleEvent(meetingCalendar);
+    
+    // Schedule the priority event
+    priorityEvent.scheduleEvent(meetingCalendar);
+    
+    // Check that the priority event replaced the previous event
+    assertFalse(meetingCalendar.containsEvent(event1), "The original event should be displaced by the priority event.");
+    assertTrue(meetingCalendar.containsEvent(priorityEvent), "The priority event should be scheduled successfully.");
+}
+
+@Test
+void testScheduleWeeklyEvent() {
+    GregorianCalendar repeat = new GregorianCalendar(2024, 9, 22, 10, 0);
+    WeeklyEvent weeklyEvent = new WeeklyEvent(description, location, startTime, endTime, repeat);
+    
+    // Schedule the weekly event
+    weeklyEvent.scheduleEvent(meetingCalendar);
+    
+    // Check that the weekly event was added to the calendar
+    assertTrue(meetingCalendar.containsEvent(weeklyEvent), "Weekly event should be scheduled successfully.");
+}
+
+@Test
+void testScheduleMultiDayPerWeekEvent() {
+    int[] days = {GregorianCalendar.MONDAY, GregorianCalendar.WEDNESDAY};
+    GregorianCalendar repeat = new GregorianCalendar(2024, 9, 16, 10, 0);
+    MultiDayPerWeekEvent multiDayEvent = new MultiDayPerWeekEvent(description, location, startTime, endTime, repeat, days);
+    
+    // Schedule the multi-day event
+    multiDayEvent.scheduleEvent(meetingCalendar);
+    
+    // Check that the multi-day event was added to the calendar
+    assertTrue(meetingCalendar.containsEvent(multiDayEvent), "Multi-day event should be scheduled successfully.");
+}
+
 
 Assessment report [-]
 OneTimeEvent should not displace existing meetings
