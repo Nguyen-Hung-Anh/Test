@@ -4,6 +4,46 @@ import org.junit.jupiter.api.Test;
 import java.util.GregorianCalendar;
 import calendar.MeetingCalendar;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.GregorianCalendar;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import calendar.MeetingCalendar;
+
+class CalendarEventTest
+{
+	private GregorianCalendar startTime;
+    private GregorianCalendar endTime;
+    private String description;
+    private String location;
+    private MeetingCalendar meetingCalendar;
+    
+	@BeforeEach
+	void setUp() throws Exception
+	{
+		description = "Team Meeting";
+        location = "Conference Room";
+        startTime = new GregorianCalendar(2024, 9, 15, 10, 0);
+        endTime = new GregorianCalendar(2024, 9, 15, 11, 0);
+        meetingCalendar = new MeetingCalendar();
+	}
+
+	@Test
+	void testCalendarEvent()
+	{
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testScheduleEvent()
+	{
+		fail("Not yet implemented");
+	}
+}
+
 public class CalendarEventTest {
 
     private GregorianCalendar startTime;
