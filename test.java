@@ -1,3 +1,15 @@
+@Test
+	void testCalendarEvent()
+	{
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testScheduleEvent()
+	{
+		fail("Not yet implemented");
+	}
+
 Assessment report [-]
 OneTimeEvent should not displace existing meetings
 
