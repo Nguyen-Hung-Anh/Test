@@ -1,9 +1,9 @@
+package calendar;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.GregorianCalendar;
 import calendar.MeetingCalendar;
-import calendar.OneTimeEvent;
 import calendar.WeeklyEvent;
 import calendar.MultiDayPerWeekEvent;
 import calendar.PriorityEvent;
@@ -72,10 +72,16 @@ class CalendarEventTest {
         OneTimeEvent event = new OneTimeEvent(description, location, startTime, endTime);
         
         // Schedule the event
-        boolean added = meetingCalendar.addMeeting(event);
-        
+        event.scheduleEvent(meetingCalendar);
+
         // Check if the event was added to the calendar
-        assertTrue(added, "One-time event should be scheduled successfully.");
+        Meeting addedMeeting = meetingCalendar.findMeeting(startTime);
+
+        assertEquals(description, addedMeeting.getDescription());
+        assertEquals(location, addedMeeting.getLocation());
+        assertEquals(startTime, addedMeeting.getStartTime());
+        assertEquals(endTime, addedMeeting.getEndTime());
+        assertTrue(meetingCalendar.doesMeetingConflict(addedMeeting), "Added meeting has conflict.");
     }
 
     @Test
