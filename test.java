@@ -1,3 +1,30 @@
+CalendarEventTest.java:3: error: class, interface, enum, or record expected
+package calendar;
+^
+CalendarEventTest.java:4: error: class, interface, enum, or record expected
+import static org.junit.jupiter.api.Assertions.*;
+^
+CalendarEventTest.java:5: error: class, interface, enum, or record expected
+import org.junit.jupiter.api.BeforeEach;
+^
+CalendarEventTest.java:6: error: class, interface, enum, or record expected
+import org.junit.jupiter.api.Test;
+^
+CalendarEventTest.java:7: error: class, interface, enum, or record expected
+import java.util.GregorianCalendar;
+^
+CalendarEventTest.java:8: error: class, interface, enum, or record expected
+import calendar.MeetingCalendar;
+^
+CalendarEventTest.java:9: error: class, interface, enum, or record expected
+import calendar.WeeklyEvent;
+^
+CalendarEventTest.java:10: error: class, interface, enum, or record expected
+import calendar.MultiDayPerWeekEvent;
+^
+CalendarEventTest.java:11: error: class, interface, enum, or record expected
+import calendar.PriorityEvent;
+
 package calendar;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
